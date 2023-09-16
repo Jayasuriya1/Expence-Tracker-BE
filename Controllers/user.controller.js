@@ -19,7 +19,7 @@ exports.signUp = async (req, res) => {
       const jwtToken = await jwt.sign({ email: email }, secret, {
         expiresIn: "15min",
       });
-      const link = `http://localhost:7002/email/verification/${jwtToken}`;
+      const link = `https://expense-tracker-rsj.netlify.app/user/email/verification/${jwtToken}`;
       const data = {
         name,
         email,
@@ -68,7 +68,6 @@ exports.signUp = async (req, res) => {
           res.status(200).json({
             success: true,
             message: "Verification Link Send To Your Mail Successfully",
-            link,
           });
         }
       });
@@ -98,7 +97,7 @@ exports.forgetPassword = async (req, res) => {
         secret,
         { expiresIn: "15min" }
       );
-      const link = `http://localhost:3000/resetPassword/${user._id}/${token}`;
+      const link = `https://expense-tracker-rsj.netlify.app/resetPassword/${user._id}/${token}`;
       user.token = token;
       await user.save();
 
@@ -267,7 +266,7 @@ exports.login = async (req, res) => {
           expiresIn: "1d",
         });
 
-        const link = `http://localhost:3000/email/verification/${jwtToken}`;
+        const link = `https://expense-tracker-rsj.netlify.app/user/email/verification/${jwtToken}`;
         const transporter = nodemailer.createTransport({
           service: "gmail",
           auth: {
@@ -311,7 +310,6 @@ exports.login = async (req, res) => {
               success: false,
               message:
                 "Please Verify The Email. Verification Link Send To Your Mail Successfully",
-              link,
             });
           }
         });
